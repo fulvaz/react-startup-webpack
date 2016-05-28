@@ -1,7 +1,11 @@
 var path = require('path');
 
 module.exports = {
-    entry: './entry.js',
+    entry: [
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client?http://localhost:8080',
+        './src/entry.js'],
+
     output: {
         path: path.join(__dirname, '/build'),
         filename: 'bundle.js'
@@ -13,12 +17,16 @@ module.exports = {
         loaders: [
             {
                 test: /\.js|jsx$/,
-                loaders: ['babel'],
+                loader: 'babel',
                 query: {
-                    presets: ['react']
+                    presets: ['es2015','react', 'stage-0'],
+                    sourceMaps: 'both'
                 },
                 exclude: /(node_modules|bower_components)/
             }
         ]
+        // loaders: [
+        //     { test: /\.jsx?$/, loaders: ['jsx?harmony']}
+        // ]
     }
 }
